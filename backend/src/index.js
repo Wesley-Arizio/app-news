@@ -1,35 +1,6 @@
 import { ApolloServer, gql } from "apollo-server";
-
-const typeDefs = gql`
-  type News {
-    title: String
-    body: String
-    author: String
-  }
-
-  type Query {
-    news: [News]
-  }
-`;
-
-const news = [
-  {
-    title: "The Awakening",
-    body: "Article body",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    body: "Article body",
-    author: "Paul Auster",
-  },
-];
-
-const resolvers = {
-  Query: {
-    news: () => news,
-  },
-};
+import { resolvers } from "./graphql/resolvers/news.js";
+import { typeDefs } from "./graphql/typedefs/news.js";
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
