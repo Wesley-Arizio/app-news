@@ -1,6 +1,6 @@
-import { ApolloServer, gql } from "apollo-server";
-import { resolvers } from "./graphql/resolvers/news.js";
-import { typeDefs } from "./graphql/typedefs/news.js";
+const { ApolloServer, gql } = require("apollo-server");
+const { resolvers } = require("./graphql/resolvers/news");
+const { typeDefs } = require("./graphql/typedefs/news");
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

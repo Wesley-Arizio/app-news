@@ -11,8 +11,13 @@ const news = [
   },
 ];
 
-export const resolvers = {
+const resolvers = {
   Query: {
     news: () => news,
   },
+};
+
+module.exports = {
+  resolvers,
+  news,
 };
