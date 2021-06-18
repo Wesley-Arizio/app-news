@@ -2,18 +2,19 @@ const { connection } = require("../database/connection");
 const { v4 } = require("uuid");
 
 class UserRepository {
+  #UsersModel;
   constructor() {
-    this.db = connection("users");
+    this.#UsersModel = connection("users");
   }
 
   async getUserByEmail(email) {
-    const [user] = await this.db.select("*").where("email", email);
+    const [user] = await this.#UsersModel.select("*").where("email", email);
 
     return user;
   }
 
   async createUser(email, name) {
-    const [createdUser] = await this.db
+    const [createdUser] = await this.#UsersModel
       .insert({
         id: v4(),
         email,
@@ -25,7 +26,7 @@ class UserRepository {
   }
 
   async getUserById(userId) {
-    const [user] = await this.db.select("*").where("id", userId);
+    const [user] = await this.#UsersModel.select("*").where("id", userId);
 
     return user;
   }

@@ -2,18 +2,19 @@ const { connection } = require("../database/connection");
 const { v4 } = require("uuid");
 
 class NewsRepository {
+  #NewsModel;
   constructor() {
-    this.db = connection("news");
+    this.#NewsModel = connection("news");
   }
 
   async getAllNews() {
-    const news = await this.db.select("*");
+    const news = await this.#NewsModel.select("*");
 
     return news;
   }
 
   async getSpecificNews(id) {
-    const [news] = await this.db.select("*").where("id", id);
+    const [news] = await this.#NewsModel.select("*").where("id", id);
 
     return news;
   }
@@ -21,7 +22,7 @@ class NewsRepository {
   async saveNews(newsId, userId, newsDataToUpdate) {
     const { title, body } = newsDataToUpdate;
 
-    const [updatedNews] = await this.db
+    const [updatedNews] = await this.#NewsModel
       .update({
         title,
         body,
@@ -34,7 +35,7 @@ class NewsRepository {
   }
 
   async createNews(newsToCreate, userId) {
-    const createdNews = await this.db
+    const createdNews = await this.#NewsModel
       .insert({
         id: v4(),
         title: newsToCreate.title,
@@ -47,7 +48,7 @@ class NewsRepository {
   }
 
   async deleteNews(userId, newsId) {
-    const deletedNews = await this.db
+    const deletedNews = await this.#NewsModel
       .delete()
       .where('user_id', userId)
       .where('id', newsId);
