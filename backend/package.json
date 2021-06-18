@@ -6,7 +6,8 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "dev": "node src/index.js"
+    "dev": "node src/index.js",
+    "knex:migration": "npx knex migrate:latest"
   },
   "dependencies": {
     "apollo-server": "^2.25.1",
