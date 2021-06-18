@@ -21,4 +21,5 @@ CRUD básico de notícias contendo `titúlo`, `body` e também dados do autor co
         docker --run --name image-name -e POSTGRES_USER=db_user -e POSTGRES_PASSWORD=db_password -e POSTGRES_DB=db_name -p 5432:5432 -d postgres
  Nota: Os dados passado nessa flag precisam ser os mesmos setados no arquivo .env
 
-6. `yarn dev` ou `npm run dev`
+6. Você também precisará rodar o comando `yarn knex:migration` ou `npm run knex:migration` para criar as tabelas no banco
+7. `yarn dev` ou `npm run dev`
