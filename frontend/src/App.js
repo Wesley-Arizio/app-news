@@ -1,9 +1,11 @@
+import SignIn from "./components/SignIn";
+
 function App() {
   return (
-    <div className="App">
-      <p>Hello World</p>
+    <div className="main-container">
+      <SignIn />
     </div>
-  );
+  )
 }
 
 export default App;
