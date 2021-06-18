@@ -1,23 +1,80 @@
-const news = [
-  {
-    title: "The Awakening",
-    body: "Article body",
-    author: "Kate Chopin",
-  },
-  {
-    title: "City of Glass",
-    body: "Article body",
-    author: "Paul Auster",
-  },
-];
+const GetNewsService = require("../../service/GetNewsService");
+const UpdateNewsService = require("../../service/UpdateNewsService");
+const CreateNewService = require("../../service/CreateNewsService");
+const CreateUserService = require("../../service/CreateUserService");
+const DeleteNewsService = require("../../service/DeleteNewsService");
 
 const resolvers = {
   Query: {
-    news: () => news,
+    news: async () => {
+      try {
+        const getNewsService = new GetNewsService();
+
+        const news = await getNewsService.execute();
+
+        return news;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+  },
+
+  Mutation: {
+    updateNews: async (_, { newsId, userId, newsDataToUpdate }) => {
+      try {
+        const updateNewsService = new UpdateNewsService();
+
+        const updatedNews = await updateNewsService.execute({
+          newsId,
+          newsDataToUpdate,
+          userId
+        });
+
+        return updatedNews;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+
+    createNews: async (_, { data }) => {
+      try {
+        const createNewsService = new CreateNewService();
+
+        const created = createNewsService.execute(data);
+
+        return created;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+
+    createUser: async (_, { user }) => {
+      try {
+        const createUserService = new CreateUserService();
+
+        const createUser = await createUserService.execute(user)
+
+        return createUser;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+
+    deleteNews: async (_, { userId, newsId }) => {
+      try {
+
+        const deleteNewsService = new DeleteNewsService();
+
+        const deletedNews = await deleteNewsService.execute(userId, newsId);
+
+        return deletedNews;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    }
   },
 };
 
 module.exports = {
   resolvers,
-  news,
 };
