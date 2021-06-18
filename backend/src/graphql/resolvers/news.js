@@ -3,6 +3,7 @@ const UpdateNewsService = require("../../service/UpdateNewsService");
 const CreateNewService = require("../../service/CreateNewsService");
 const CreateUserService = require("../../service/CreateUserService");
 const DeleteNewsService = require("../../service/DeleteNewsService");
+const UserSessionService = require("../../service/UserSessionService");
 
 const resolvers = {
   Query: {
@@ -17,6 +18,17 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    userSession: async (_, { email }) => {
+      try {
+        const userSessionService = new UserSessionService();
+
+        const session = await userSessionService.execute(email);
+
+        return session;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    }
   },
 
   Mutation: {

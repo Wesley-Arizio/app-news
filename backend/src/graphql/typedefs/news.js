@@ -34,6 +34,7 @@ const typeDefs = gql`
 
   type Query {
     news: [News]!
+    userSession(email: String): User!
   }
 
   type Mutation {
