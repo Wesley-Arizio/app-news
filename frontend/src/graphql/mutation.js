@@ -1,0 +1,21 @@
+import { gql } from '@apollo/client';
+
+export const CREATE_USER_MUTATION = gql`
+    mutation createUser($user: CreateUserInput!) {
+        createUser(user: $user) {
+            id
+            email
+            name
+        }
+    }
+`;
+
+export const CREATE_USER_SESSION = gql`
+    mutation userSession($email: String!) {
+        userSession(email: $email) {
+            id
+            email
+            name
+        }
+    }
+`;

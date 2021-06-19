@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap");
 
-header.header-signin form {
+header.header-form-user-account {
+  width: 100%;
+}
+
+header.header-form-user-account form {
   width: 100%;
   margin-top: 50px;
   display: flex;
@@ -10,8 +14,8 @@ header.header-signin form {
 }
 
 .input-form {
-  width: 182px;
-  height: 20px;
+  width: 232px;
+  height: 40px;
   background: #fff;
 
   font-family: Mulish;
@@ -25,6 +29,7 @@ header.header-signin form {
 
 .input-submit-form {
   width: 109px;
+  height: 40px;
   padding: 5px 16px;
   background: #3c64b1;
 
@@ -43,4 +48,16 @@ header.header-signin form {
 .input-submit-form:hover {
   filter: brightness(1);
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  header.header-form-user-account form {
+    margin-top: 20px;
+    flex-direction: column;
+  }
+  .input-form,
+  .input-submit-form {
+    width: 100%;
+    margin-top: 10px;
+  }
 }

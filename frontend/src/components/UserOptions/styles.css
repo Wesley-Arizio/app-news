@@ -1,0 +1,20 @@
+.main-options {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.main-options input {
+  width: 80px;
+  font-size: 9px;
+}
+
+.main-options input:first-child {
+  margin-right: 10px;
+}
+
+.main-options input + input {
+  margin-left: 10px;
+}

@@ -1,32 +1,30 @@
-import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_USER_MUTATION } from '../../graphql/mutation';
+import React from 'react';
+import { useUserContext } from '../../context/userContext';
 
 import './styles.css';
 
+const FormUserAccount = ({ buttonValue, option }) => {
+    const [email, setEmail] = React.useState('');
+    const [name, setName] = React.useState('');
 
-const SignIn = () => {
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-
-    const [createUser] = useMutation(CREATE_USER_MUTATION);
-
+    const { error, handleLogin, handleCreateAccount} = useUserContext();
+    
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const { data } = await createUser({
-            variables: {
-                user: {
-                    email,
-                    name
-                }
-            }
-        })
 
-        console.log("Response", data.createUser);
+        const fn = option === 'sign in' 
+            ? handleLogin 
+            : handleCreateAccount;
+
+        await fn({email, name})
+    }
+
+    if(error.hasError) {
+        return <h1>ERROR</h1> // user not found or other errur
     }
 
     return (
-        <header className="header-signin">
+        <header className="header-form-user-account">
             <form onSubmit={handleSubmit}>
                 <input
                     className="input-form"
@@ -43,10 +41,10 @@ const SignIn = () => {
                     value={name}
                     onChange={(event) => setName(event.target.value)}
                 />
-                <input className="input-submit-form" type="submit" value="SEND" />
+                <input className="input-submit-form" type="submit" value={buttonValue} />
             </form>
         </header>
     )
 }
 
-export default SignIn;
+export default FormUserAccount;
