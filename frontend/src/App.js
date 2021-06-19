@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserContextProvider } from "./context/userContext";
+import { NewsContextProvider } from './context/newsContext';
 
 import Home from './screen/home';
 
@@ -7,7 +8,9 @@ import Home from './screen/home';
 function App() {
   return (
     <UserContextProvider>
-      <Home />
+      <NewsContextProvider>
+        <Home />
+      </NewsContextProvider>
     </UserContextProvider>
   )
 }
