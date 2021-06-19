@@ -1,0 +1,30 @@
+div.container-error {
+  width: 200px;
+  height: 40px;
+
+  position: absolute;
+  z-index: 1000;
+  top: 50px;
+  right: 100px;
+
+  background: red;
+  animation: fadeIn 0.5s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: 100px;
+  }
+}
+
+div.container-error p {
+  font-family: Moulish;
+  color: #fff;
+}
