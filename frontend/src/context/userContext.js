@@ -6,6 +6,7 @@ const UserContext = React.createContext({});
 
 export const UserContextProvider = ({ children }) => {
     const [user, setUser] = React.useState({});
+    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [error, setError] = React.useState({
         hasError: false,
         message: '',
@@ -21,8 +22,11 @@ export const UserContextProvider = ({ children }) => {
                     email: user.email,
                 }
             });
-    
-            setUser(data.userSession);
+            setUser({
+                email: data.userSession.email,
+                name: data.userSession.name
+            });
+            setIsLoggedIn(!isLoggedIn);
         } catch (err) {
             setError({ 
                 hasError: !error.hasError,
@@ -43,7 +47,11 @@ export const UserContextProvider = ({ children }) => {
                 }
             });
     
-            setUser(data.createUser);
+            setUser({
+                email: data.createUser.email,
+                name: data.createUser.name,
+            });
+            setIsLoggedIn(!isLoggedIn);
         } catch (err) {
             setError({ 
                 hasError: !error.hasError,
@@ -53,8 +61,19 @@ export const UserContextProvider = ({ children }) => {
         }
     }
 
+    React.useEffect(() => {
+        if(error.hasError) {
+            setTimeout(() => {
+                setError({
+                    hasError: false,
+                    message: '',
+                })
+            }, 5000)
+        }
+    }, [error])
+
     return (
-        <UserContext.Provider value={{ user, handleLogin, error, handleCreateAccount }}>
+        <UserContext.Provider value={{ user, isLoggedIn, handleLogin, error, handleCreateAccount }}>
             {children}
         </UserContext.Provider>
     )
