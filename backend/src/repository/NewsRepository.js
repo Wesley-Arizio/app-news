@@ -14,7 +14,7 @@ class NewsRepository {
   }
 
   async getSpecificNews(id) {
-    const [news] = await this.#NewsModel.select("*").where("id", id);
+    const [news] = await this.#NewsModel.select("*").where("news.id", id).innerJoin('users', 'users.id', 'news.user_id');
 
     return news;
   }

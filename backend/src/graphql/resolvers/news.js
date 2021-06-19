@@ -4,6 +4,7 @@ const CreateNewService = require("../../service/CreateNewsService");
 const CreateUserService = require("../../service/CreateUserService");
 const DeleteNewsService = require("../../service/DeleteNewsService");
 const UserSessionService = require("../../service/UserSessionService");
+const GetCompleteNewsDataService = require('../../service/GetCompleteNewsDataService');
 
 const resolvers = {
   Query: {
@@ -18,6 +19,17 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
+    newsData: async (_, { newsId }) => {
+      try {
+        const getCompleteNewsDataService = new GetCompleteNewsDataService();
+
+        const news = await getCompleteNewsDataService.execute(newsId);
+
+        return news;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    }
   },
 
   Mutation: {

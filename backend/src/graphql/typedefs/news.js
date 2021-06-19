@@ -16,6 +16,11 @@ const typeDefs = gql`
     updated_at: String
   }
 
+  type CompleteNewsData {
+    news: News,
+    user: User
+  }
+
   input UpdateNewsInput {
     title: String
     body: String
@@ -34,6 +39,7 @@ const typeDefs = gql`
 
   type Query {
     news: [News]!
+    newsData(newsId: ID!): CompleteNewsData!
   }
 
   type Mutation {
