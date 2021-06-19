@@ -58,7 +58,18 @@ div.modal p {
   line-height: 25px;
 
   letter-spacing: 0.3px;
-
-  color: #737b7d;
   text-align: justify;
+  color: #737b7d;
+}
+
+section.author-section p {
+  color: #737b7d;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: left;
+}
+
+section.author-section span.author-name {
+  color: rgba(60, 100, 177, 1);
+  text-transform: capitalize;
 }
