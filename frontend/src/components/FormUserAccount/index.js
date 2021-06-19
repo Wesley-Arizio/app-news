@@ -9,16 +9,23 @@ const FormUserAccount = ({ buttonValue, option, selected, setSelected }) => {
     const [email, setEmail] = React.useState('');
     const [name, setName] = React.useState('');
 
-    const { error, handleLogin, handleCreateAccount } = useUserContext();
+    const { error, handleLogin, handleCreateAccount, setError } = useUserContext();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const fn = option === 'sign in' 
-            ? handleLogin 
-            : handleCreateAccount;
-
-        await fn({email, name})
+        if(email.trim().lenght < 3 || name.trim().length < 3) {
+            setError({
+                hasError: true,
+                message: 'Fields Cannot be empty'
+            })
+        } else {
+            const fn = option === 'sign in' 
+                ? handleLogin 
+                : handleCreateAccount;
+            
+                await fn({email, name})
+        }
     }
 
     return (

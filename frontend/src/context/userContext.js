@@ -78,7 +78,7 @@ export const UserContextProvider = ({ children }) => {
     }, [error])
 
     return (
-        <UserContext.Provider value={{ user, isLoggedIn, handleLogin, error, handleCreateAccount, handleLogout }}>
+        <UserContext.Provider value={{ user, isLoggedIn, handleLogin, error, handleCreateAccount, handleLogout, setError }}>
             {children}
         </UserContext.Provider>
     )

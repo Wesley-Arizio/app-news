@@ -11,7 +11,7 @@ const WelcomeAuthor = () => {
         <header className="container-welcome-author">
             <h1>
                 Olá&nbsp;
-                <p className="header-username"> {user.name || 'random'}
+                <p className="header-username"> {user.name}
                 </p>, Seja Bem Vindo!
             </h1>
 
