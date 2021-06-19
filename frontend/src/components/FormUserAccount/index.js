@@ -1,13 +1,15 @@
 import React from 'react';
 import { useUserContext } from '../../context/userContext';
+import ErrorNotification from '../Error';
+import Options from '../UserOptions';
 
 import './styles.css';
 
-const FormUserAccount = ({ buttonValue, option }) => {
+const FormUserAccount = ({ buttonValue, option, selected, setSelected }) => {
     const [email, setEmail] = React.useState('');
     const [name, setName] = React.useState('');
 
-    const { error, handleLogin, handleCreateAccount} = useUserContext();
+    const { error, handleLogin, handleCreateAccount } = useUserContext();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -17,10 +19,6 @@ const FormUserAccount = ({ buttonValue, option }) => {
             : handleCreateAccount;
 
         await fn({email, name})
-    }
-
-    if(error.hasError) {
-        return <h1>ERROR</h1> // user not found or other errur
     }
 
     return (
@@ -43,6 +41,8 @@ const FormUserAccount = ({ buttonValue, option }) => {
                 />
                 <input className="input-submit-form" type="submit" value={buttonValue} />
             </form>
+            {error.hasError && <ErrorNotification message={error.message} />}
+            { selected !== '' && <Options onPressed={setSelected}/>}
         </header>
     )
 }
