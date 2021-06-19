@@ -61,6 +61,11 @@ export const UserContextProvider = ({ children }) => {
         }
     }
 
+    const handleLogout = () => {
+        setUser({});
+        setIsLoggedIn(false);
+    }
+
     React.useEffect(() => {
         if(error.hasError) {
             setTimeout(() => {
@@ -73,7 +78,7 @@ export const UserContextProvider = ({ children }) => {
     }, [error])
 
     return (
-        <UserContext.Provider value={{ user, isLoggedIn, handleLogin, error, handleCreateAccount }}>
+        <UserContext.Provider value={{ user, isLoggedIn, handleLogin, error, handleCreateAccount, handleLogout }}>
             {children}
         </UserContext.Provider>
     )
