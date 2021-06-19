@@ -2,9 +2,9 @@ import React from 'react';
 
 import './styles.css';
 
-const NewsItem = ({ title, body, openModal }) => {
+const NewsItem = ({ title, openModal, newsId }) => {
     return (
-        <div className="container-news-item" onClick={() => openModal({title, body})}>
+        <div className="container-news-item" onClick={() => openModal(newsId)}>
             <h5>{title}</h5>
         </div>
     )
