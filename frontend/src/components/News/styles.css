@@ -17,3 +17,20 @@ section.main-section h1 {
 
   color: #373f41;
 }
+
+.header-news {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-news svg {
+  cursor: pointer;
+  filter: brightness(1.2);
+  transition: all 0.4s;
+}
+
+.header-news svg:hover {
+  filter: brightness(1);
+}

@@ -22,7 +22,9 @@ export const UserContextProvider = ({ children }) => {
                     email: user.email,
                 }
             });
+
             setUser({
+                id: data.userSession.id,
                 email: data.userSession.email,
                 name: data.userSession.name
             });
@@ -46,8 +48,9 @@ export const UserContextProvider = ({ children }) => {
                     }
                 }
             });
-    
+
             setUser({
+                id:  data.createUser.id,
                 email: data.createUser.email,
                 name: data.createUser.name,
             });
