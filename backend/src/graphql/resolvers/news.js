@@ -18,17 +18,6 @@ const resolvers = {
         throw new Error(error.message);
       }
     },
-    userSession: async (_, { email }) => {
-      try {
-        const userSessionService = new UserSessionService();
-
-        const session = await userSessionService.execute(email);
-
-        return session;
-      } catch (error) {
-        throw new Error(error.message);
-      }
-    }
   },
 
   Mutation: {
@@ -80,6 +69,18 @@ const resolvers = {
         const deletedNews = await deleteNewsService.execute(userId, newsId);
 
         return deletedNews;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+
+    userSession: async (_, { email }) => {
+      try {
+        const userSessionService = new UserSessionService();
+
+        const session = await userSessionService.execute(email);
+
+        return session;
       } catch (error) {
         throw new Error(error.message);
       }

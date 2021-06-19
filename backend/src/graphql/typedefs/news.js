@@ -34,7 +34,6 @@ const typeDefs = gql`
 
   type Query {
     news: [News]!
-    userSession(email: String): User!
   }
 
   type Mutation {
@@ -42,6 +41,7 @@ const typeDefs = gql`
     createNews(data: CreateNewsInput!): News!
     createUser(user: CreateUserInput!): User!
     deleteNews(userId: ID!, newsId: ID!): Boolean!
+    userSession(email: String): User!
   }
 `;
 
