@@ -1,0 +1,28 @@
+div.container-news-item {
+  margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+
+  min-height: 50px;
+  height: auto;
+  background: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 5px 20px;
+}
+
+div.container-news-item h5 {
+  font-family: Mulish;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  /* identical to box height, or 129% */
+
+  letter-spacing: 0.2px;
+
+  /* Light / Black */
+
+  color: #373f41;
+}
