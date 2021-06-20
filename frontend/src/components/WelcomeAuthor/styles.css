@@ -29,3 +29,9 @@ header.container-welcome-author h1 {
 p.header-username {
   color: rgba(60, 100, 177, 1);
 }
+
+@media (max-width: 768px) {
+  header.container-welcome-author {
+    flex-direction: column;
+  }
+}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_NEWS } from '../graphql/query';
-import { CREATE_NEWS, DELETE_NEWS } from '../graphql/mutation';
+import { CREATE_NEWS, DELETE_NEWS, UPDATE_NEWS } from '../graphql/mutation';
 import { useUserContext } from './userContext';
 
 const NewsContext = React.createContext({});
@@ -12,6 +12,7 @@ export const NewsContextProvider = ({ children }) => {
     const { user } = useUserContext();
 
     const [news, setNews] = React.useState([]);
+    const [newsToEdit, setNewsToEdit] = React.useState();
     const [newsHasError, setNewsHasError] = React.useState({
         hasError: false,
         message: '',
@@ -20,6 +21,7 @@ export const NewsContextProvider = ({ children }) => {
     const { loading, error, data } = useQuery(GET_NEWS);
     const [createNews] = useMutation(CREATE_NEWS);
     const [deleteNews] = useMutation(DELETE_NEWS)
+    const [updateNews] = useMutation(UPDATE_NEWS);
 
     React.useEffect(() => {
         if(!loading && !error) {
@@ -60,8 +62,31 @@ export const NewsContextProvider = ({ children }) => {
         }
     }
 
-    const handleEditNews = async (news) => {
-        return '';
+    const handleEditNews = async ({title, body}) => {
+        try {
+            const { data } = await  updateNews({
+                variables: {
+                    newsId: newsToEdit.id,
+                    userId: user.id,
+                    newsDataToUpdate: {
+                        title,
+                        body,
+                    }
+                }
+            });
+
+            const listWithOldNews = news.filter(item =>item.id !== newsToEdit.id);
+            const currentNewsList = [...listWithOldNews, data.updateNews];
+
+            setNews(() => [...currentNewsList])
+
+        } catch (err) {
+            setNewsHasError({
+                hasError: true,
+                message: err.message
+            });
+            console.error(err.message);
+        }
     }
 
     const handleDeleteNews = async (newsId) => {
@@ -98,6 +123,8 @@ export const NewsContextProvider = ({ children }) => {
             handleCreateNews,
             handleEditNews,
             handleDeleteNews,
+            setNewsToEdit,
+            newsToEdit
         }}>
             { children }
         </NewsContext.Provider>

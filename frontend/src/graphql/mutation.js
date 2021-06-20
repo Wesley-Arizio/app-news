@@ -25,6 +25,7 @@ export const CREATE_NEWS = gql`
         createNews(data: $data) {
             id
             title
+            body
             user_id
         }
     }
@@ -33,5 +34,18 @@ export const CREATE_NEWS = gql`
 export const DELETE_NEWS = gql`
     mutation deleteNews($newsId: ID!, $userId: ID!) {
         deleteNews(newsId: $newsId, userId: $userId)
+    }
+`;
+
+export const UPDATE_NEWS = gql`
+    mutation updateNews($newsId: ID!, $userId: ID!, $newsDataToUpdate: UpdateNewsInput!) {
+        updateNews(newsId: $newsId, userId: $userId, newsDataToUpdate: $newsDataToUpdate) {
+            title
+            body
+            id
+            user_id
+            updated_at
+            created_at
+        }
     }
 `;

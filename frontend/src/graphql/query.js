@@ -5,6 +5,7 @@ export const GET_NEWS = gql`
         news {
             id
             title
+            body
             user_id
         }
     }

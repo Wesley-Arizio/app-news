@@ -6,7 +6,7 @@ import { AiFillEdit } from 'react-icons/ai';
 
 import './styles.css';
 
-const AuthorMenu = ({ newsId }) => {
+const AuthorMenu = ({ newsId, openEditNewsModal }) => {
     const { handleDeleteNews } = useNewsContext();
 
     const handleDelete = async () => {
@@ -16,13 +16,22 @@ const AuthorMenu = ({ newsId }) => {
     return (
         <div className="container-author-menu">
             <MdDelete size={20} color="#3c64b1" onClick={() => handleDelete()} />
-            <AiFillEdit size={20} color="#3c64b1" />
+            <AiFillEdit size={20} color="#3c64b1" onClick={() => openEditNewsModal()} />
         </div>
     )
 }
 
-const NewsItem = ({ title, authorId, openModal, newsId }) => {
+const NewsItem = ({ title, authorId, openModal, newsId, openEditNewsModal }) => {
     const { user } = useUserContext();
+    const { news, setNewsToEdit } = useNewsContext();
+
+    const handleEditNewsModal = () => {
+        const [newsToEdit] = news.filter(item => item.id === newsId);
+        console.log(newsToEdit)
+        setNewsToEdit(newsToEdit);
+        openEditNewsModal();
+    }
+
 
     return (
         <div className="container-news-item" >
@@ -30,7 +39,7 @@ const NewsItem = ({ title, authorId, openModal, newsId }) => {
                 <h5>{title}</h5>
             </div>
 
-            {user.id === authorId && <AuthorMenu newsId={newsId}/>}
+            {user.id === authorId && <AuthorMenu newsId={newsId} openEditNewsModal={handleEditNewsModal} />}
         </div>
     )
 }

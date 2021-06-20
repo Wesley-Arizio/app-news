@@ -9,9 +9,10 @@ import './styles.css'
 import '../FormUserAccount/styles.css'
 
 
-const CreateNewsModal = ({ close, option }) => {
-    const [title, setTitle] = React.useState('');
-    const [body, setBody] = React.useState('');
+const CreateOrEditNewsModal = ({ close, option }) => {
+    const { newsToEdit } = useNewsContext();
+    const [title, setTitle] = React.useState(option === 'edit' ? newsToEdit.title : '');
+    const [body, setBody] = React.useState(option === 'edit' ? newsToEdit.body : '');
 
     const { newsHasError, setNewsHasError, handleCreateNews, handleEditNews } = useNewsContext();
 
@@ -36,7 +37,7 @@ const CreateNewsModal = ({ close, option }) => {
         <div className="container-modal">
             <div className="modal">
                 <header className="modal-header">
-                    <h1>Create Post</h1>
+                    <h1>{option} Post</h1>
                     <FaTimes size={20} color={`#373f41`} onClick={() => close()} />
                 </header>
 
@@ -57,7 +58,7 @@ const CreateNewsModal = ({ close, option }) => {
                         placeholder="News Description"
                     />
 
-                    <input className="input-submit-form" type="submit" value="Create News" />
+                    <input className="input-submit-form" type="submit" value={option === 'create' ? 'Create News' : 'Save News'} />
                 </form>
                 {newsHasError.hasError && <ErrorNotification message={newsHasError.message} />}
             </div>
@@ -65,4 +66,4 @@ const CreateNewsModal = ({ close, option }) => {
     )
 }
 
-export default CreateNewsModal;
+export default CreateOrEditNewsModal;

@@ -7,7 +7,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 
 import NewsItem from './NewsItem';
 import NewsModal from './NewsModal';
-import CreateNewsModal from '../CreateNewsModal';
+import CreateOrEditNewsModal from '../CreateOrEditNewsModal';
 
 
 import './styles.css'
@@ -15,6 +15,7 @@ import './styles.css'
 const News = () => {
     const [isNewsModalOpened, setIsNewsModalOpened] = React.useState(false);
     const [isCreateNewsModalOpened, setIsCreateNewsModalOpened] = React.useState(false);
+    const [isEditingNewsModalOpened, setIsEditingNewsModalOpened] = React.useState(false);
     const [selectedNews, setSelectedNews] = React.useState(null);
 
     const { error, loading, news} = useNewsContext();
@@ -38,15 +39,19 @@ const News = () => {
         setSelectedNews({});
     }
 
-    const handleOpenCreateNewsModal = () => {
+    const handleCreateNewsModal = () => {
         setIsCreateNewsModalOpened(!isCreateNewsModalOpened);
+    }
+
+    const handleEditingNewsModal = () => {
+        setIsEditingNewsModalOpened(!isEditingNewsModalOpened)
     }
 
     return (
         <section className="main-section">
             <div className="header-news">
                 <h1>News</h1>
-                {isLoggedIn && <AiFillPlusCircle size={35} color="#3c64b1" onClick={() => handleOpenCreateNewsModal()}/>}
+                {isLoggedIn && <AiFillPlusCircle size={35} color="#3c64b1" onClick={() => handleCreateNewsModal()}/>}
             </div>
             {
                 !loading && !error &&
@@ -59,12 +64,14 @@ const News = () => {
                                     newsId={item.id} 
                                     authorId={item.user_id} 
                                     openModal={handleOpenNewsModal} 
+                                    openEditNewsModal={handleEditingNewsModal}
                                 />
                             ))
                         }
 
                         {isNewsModalOpened && <NewsModal newsId={selectedNews} close={handleCloseNewsModal} />}
-                        {isCreateNewsModalOpened && <CreateNewsModal close={handleOpenCreateNewsModal} option="create" />}
+                        {isCreateNewsModalOpened && <CreateOrEditNewsModal close={handleCreateNewsModal} option="create" />}
+                        {isEditingNewsModalOpened && <CreateOrEditNewsModal close={handleEditingNewsModal} option="edit" />}
                     </React.Fragment>
             }
         </section>
