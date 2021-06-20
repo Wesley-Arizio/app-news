@@ -2,7 +2,7 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_NEWS } from '../graphql/query';
-import { CREATE_NEWS } from '../graphql/mutation';
+import { CREATE_NEWS, DELETE_NEWS } from '../graphql/mutation';
 import { useUserContext } from './userContext';
 
 const NewsContext = React.createContext({});
@@ -19,6 +19,7 @@ export const NewsContextProvider = ({ children }) => {
 
     const { loading, error, data } = useQuery(GET_NEWS);
     const [createNews] = useMutation(CREATE_NEWS);
+    const [deleteNews] = useMutation(DELETE_NEWS)
 
     React.useEffect(() => {
         if(!loading && !error) {
@@ -37,19 +38,19 @@ export const NewsContextProvider = ({ children }) => {
         }
     }, [newsHasError])
 
-    const handleCreateNews = async (news) => {
+    const handleCreateNews = async (newsToCreate) => {
         try {
             const { data } = await  createNews({
                 variables: {
                     data: {
                         userId: user.id,
-                        title: news.title,
-                        body: news.body
+                        title: newsToCreate.title,
+                        body: newsToCreate.body
                     }
                 }
             });
 
-            setNews((news) => [...news, data.createNews])
+            setNews((news) => [...news, data.createNews]);
        } catch (err) {
             setNewsHasError({
                 hasError: true,
@@ -63,8 +64,41 @@ export const NewsContextProvider = ({ children }) => {
         return '';
     }
 
+    const handleDeleteNews = async (newsId) => {
+        try {
+            const { data } = await  deleteNews({
+                variables: {
+                    newsId,
+                    userId: user.id,
+                }
+            });
+
+            if(data.deleteNews) {
+                const withoutDeletedNews = news.filter(item => item.id !== newsId);
+
+                setNews(() => [...withoutDeletedNews]);
+            }
+       } catch (err) {
+            setNewsHasError({
+                hasError: true,
+                message: err.message
+            });
+            console.error(err.message);
+        }
+    }
+
     return (
-        <NewsContext.Provider value={{news, setNews, loading, error, setNewsHasError, newsHasError, handleCreateNews, handleEditNews }}>
+        <NewsContext.Provider value={{
+            news,
+            setNews,
+            loading,
+            error,
+            setNewsHasError,
+            newsHasError,
+            handleCreateNews,
+            handleEditNews,
+            handleDeleteNews,
+        }}>
             { children }
         </NewsContext.Provider>
     )

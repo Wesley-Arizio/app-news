@@ -53,7 +53,13 @@ const News = () => {
                     <React.Fragment>
                         {
                             news.map((item, index) => (
-                                <NewsItem key={index} title={item.title}  newsId={item.id} openModal={handleOpenNewsModal} />
+                                <NewsItem 
+                                    key={index} 
+                                    title={item.title}  
+                                    newsId={item.id} 
+                                    authorId={item.user_id} 
+                                    openModal={handleOpenNewsModal} 
+                                />
                             ))
                         }
 

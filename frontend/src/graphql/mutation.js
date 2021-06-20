@@ -25,6 +25,13 @@ export const CREATE_NEWS = gql`
         createNews(data: $data) {
             id
             title
+            user_id
         }
+    }
+`;
+
+export const DELETE_NEWS = gql`
+    mutation deleteNews($newsId: ID!, $userId: ID!) {
+        deleteNews(newsId: $newsId, userId: $userId)
     }
 `;
