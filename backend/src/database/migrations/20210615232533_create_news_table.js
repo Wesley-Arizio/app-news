@@ -4,7 +4,7 @@ exports.up = async function (knex) {
       return knex.schema.createTable("news", (table) => {
         table.uuid("id").primary().unique().notNullable();
         table.string("title").notNullable();
-        table.string("body").notNullable();
+        table.string("body", 5000).notNullable();
         table.timestamp("created_at").defaultTo(knex.fn.now());
         table.timestamp("updated_at").defaultTo(knex.fn.now());
         table.uuid("user_id").unsigned();
